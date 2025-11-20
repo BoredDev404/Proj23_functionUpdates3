@@ -230,7 +230,7 @@
             </div>
         </div>
 
-        <!-- Mood Modal -->
+        <!-- Enhanced Mood Modal with Stress and OCD -->
         <div class="modal" id="moodModal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -267,6 +267,17 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="numbLevel">Numbness Level (1-5)</label>
+                        <div class="slider-container">
+                            <input type="range" id="numbLevel" class="slider" min="1" max="5" value="3">
+                            <div class="slider-labels">
+                                <span>👋 Feeling</span>
+                                <span>😐 Neutral</span>
+                                <span>❄️ Numb</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="stressLevel">Stress Level (1-5)</label>
                         <div class="slider-container">
                             <input type="range" id="stressLevel" class="slider" min="1" max="5" value="3">
@@ -282,7 +293,7 @@
                         <div class="slider-container">
                             <input type="range" id="ocdLevel" class="slider" min="1" max="5" value="3">
                             <div class="slider-labels">
-                                <span>😊 Controlled</span>
+                                <span>🧘 Controlled</span>
                                 <span>😐 Normal</span>
                                 <span>🔄 High OCD</span>
                             </div>
