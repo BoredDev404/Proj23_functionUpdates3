@@ -231,29 +231,6 @@
         </div>
 
         <!-- Mood Modal -->
-<!-- Add this to your existing mood modal in index.html -->
-<div class="form-group">
-    <label for="stressLevel">Stress Level (1-5)</label>
-    <div class="slider-container">
-        <input type="range" id="stressLevel" class="slider" min="1" max="5" value="3">
-        <div class="slider-labels">
-            <span>😌 Relaxed</span>
-            <span>😐 Normal</span>
-            <span>😫 Stressed</span>
-        </div>
-    </div>
-</div>
-<div class="form-group">
-    <label for="ocdLevel">OCD Level (1-5)</label>
-    <div class="slider-container">
-        <input type="range" id="ocdLevel" class="slider" min="1" max="5" value="3">
-        <div class="slider-labels">
-            <span>😊 Controlled</span>
-            <span>😐 Normal</span>
-            <span>😵 Intense</span>
-        </div>
-    </div>
-</div>
         <div class="modal" id="moodModal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -290,13 +267,24 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="numbLevel">Numbness Level (1-5)</label>
+                        <label for="stressLevel">Stress Level (1-5)</label>
                         <div class="slider-container">
-                            <input type="range" id="numbLevel" class="slider" min="1" max="5" value="3">
+                            <input type="range" id="stressLevel" class="slider" min="1" max="5" value="3">
                             <div class="slider-labels">
-                                <span>👋 Feeling</span>
-                                <span>😐 Neutral</span>
-                                <span>❄️ Numb</span>
+                                <span>😌 Relaxed</span>
+                                <span>😐 Normal</span>
+                                <span>😰 Stressed</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="ocdLevel">OCD Level (1-5)</label>
+                        <div class="slider-container">
+                            <input type="range" id="ocdLevel" class="slider" min="1" max="5" value="3">
+                            <div class="slider-labels">
+                                <span>😊 Controlled</span>
+                                <span>😐 Normal</span>
+                                <span>🔄 High OCD</span>
                             </div>
                         </div>
                     </div>
