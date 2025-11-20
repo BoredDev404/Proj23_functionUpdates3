@@ -1,12 +1,12 @@
 // service-worker.js
-const CACHE_NAME = 'life-tracker-v7.0';
+const CACHE_NAME = 'life-tracker-v8.0';
 const urlsToCache = [
-  '/Proj23_functionUpdates2/',
-  '/Proj23_functionUpdates2/index.html',
-  '/Proj23_functionUpdates2/style.css',
-  '/Proj23_functionUpdates2/app.js',
-  '/Proj23_functionUpdates2/db.js',
-  '/Proj23_functionUpdates2/manifest.json',
+  '/Proj23_functionUpdates3/',
+  '/Proj23_functionUpdates3/index.html',
+  '/Proj23_functionUpdates3/style.css',
+  '/Proj23_functionUpdates3/app.js',
+  '/Proj23_functionUpdates3/db.js',
+  '/Proj23_functionUpdates3/manifest.json',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
   'https://cdn.jsdelivr.net/npm/dexie@3.2.4/dist/dexie.min.js',
   'https://cdn.jsdelivr.net/npm/chart.js',
