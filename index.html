@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#E1306C">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Life Tracker">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-navbutton-color" content="#000000">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no, shrink-to-fit=no">
+    
+    <title>Life Tracker Pro | Supercharged Productivity</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init('IzAkwcpEyzdXDqu8r');
+        })();
+    </script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <div class="header">
+            <div class="date-display" id="currentDate">Loading...</div>
+            <div class="header-actions">
+                <div class="settings-icon" id="settingsButton">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="settings-icon" id="emailReportButton">
+                    <i class="fas fa-envelope"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Page -->
+        <div class="page active" id="dashboard">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+
+        <!-- Dopamine Tracker Page -->
+        <div class="page" id="dopamine">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+
+        <!-- Hygiene Tracker Page -->
+        <div class="page" id="hygiene">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+
+        <!-- Workout Tracker Page -->
+        <div class="page" id="workout">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+
+        <!-- Mood Tracking Page -->
+        <div class="page" id="mood">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+
+        <!-- Analytics Page -->
+        <div class="page" id="analytics">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+
+        <!-- Database View Page -->
+        <div class="page" id="database">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+
+        <!-- Navigation Bar -->
+        <div class="nav-bar">
+            <div class="nav-item active" data-page="dashboard">
+                <div class="nav-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div>Dashboard</div>
+            </div>
+            <div class="nav-item" data-page="dopamine">
+                <div class="nav-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div>Dopamine</div>
+            </div>
+            <div class="nav-item" data-page="hygiene">
+                <div class="nav-icon">
+                    <i class="fas fa-shower"></i>
+                </div>
+                <div>Hygiene</div>
+            </div>
+            <div class="nav-item" data-page="workout">
+                <div class="nav-icon">
+                    <i class="fas fa-dumbbell"></i>
+                </div>
+                <div>Workout</div>
+            </div>
+            <div class="nav-item" data-page="mood">
+                <div class="nav-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div>Mood</div>
+            </div>
+        </div>
+
+        <!-- Dopamine Modal -->
+        <div class="modal" id="dopamineModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Log Dopamine Status</div>
+                    <div class="modal-close" id="closeDopamineModal">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="dopamineDate">Date</label>
+                        <input type="date" id="dopamineDate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="dopamineStatus">Status</label>
+                        <select id="dopamineStatus" class="form-control">
+                            <option value="passed">Successful Day</option>
+                            <option value="failed">Challenging Day</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="dopamineNotes">Notes (Optional)</label>
+                        <textarea id="dopamineNotes" class="form-control" placeholder="Add any notes about your day..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" id="cancelDopamineLog">Cancel</button>
+                        <button class="btn btn-primary" id="saveDopamineLog">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Habit Modal -->
+        <div class="modal" id="habitModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Add New Habit</div>
+                    <div class="modal-close" id="closeHabitModal">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="habitName">Habit Name</label>
+                        <input type="text" id="habitName" class="form-control" placeholder="e.g., Skincare routine">
+                    </div>
+                    <div class="form-group">
+                        <label for="habitDescription">Description (Optional)</label>
+                        <input type="text" id="habitDescription" class="form-control" placeholder="e.g., Morning and evening routine">
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" id="cancelHabit">Cancel</button>
+                        <button class="btn btn-primary" id="saveHabit">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Workout Modal -->
+        <div class="modal" id="workoutModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Add New Workout</div>
+                    <div class="modal-close" id="closeWorkoutModal">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="workoutName">Workout Name</label>
+                        <input type="text" id="workoutName" class="form-control" placeholder="e.g., Leg Day">
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" id="cancelWorkout">Cancel</button>
+                        <button class="btn btn-primary" id="saveWorkout">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Exercise Modal -->
+        <div class="modal" id="exerciseModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Add Exercise</div>
+                    <div class="modal-close" id="closeExerciseModal">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="exerciseName">Exercise Name</label>
+                        <input type="text" id="exerciseName" class="form-control" placeholder="e.g., Bench Press">
+                    </div>
+                    <div class="form-group">
+                        <label for="exercisePR">Personal Record (Optional)</label>
+                        <input type="text" id="exercisePR" class="form-control" placeholder="e.g., 185 lbs">
+                    </div>
+                    <div class="form-group">
+                        <label for="exerciseSets">Target Sets</label>
+                        <input type="number" id="exerciseSets" class="form-control" value="3" min="1" max="10">
+                    </div>
+                    <div class="form-group">
+                        <label for="exerciseReps">Target Reps</label>
+                        <input type="number" id="exerciseReps" class="form-control" value="10" min="1" max="50">
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" id="cancelExercise">Cancel</button>
+                        <button class="btn btn-primary" id="saveExercise">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mood Modal -->
+<!-- Add this to your existing mood modal in index.html -->
+<div class="form-group">
+    <label for="stressLevel">Stress Level (1-5)</label>
+    <div class="slider-container">
+        <input type="range" id="stressLevel" class="slider" min="1" max="5" value="3">
+        <div class="slider-labels">
+            <span>😌 Relaxed</span>
+            <span>😐 Normal</span>
+            <span>😫 Stressed</span>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label for="ocdLevel">OCD Level (1-5)</label>
+    <div class="slider-container">
+        <input type="range" id="ocdLevel" class="slider" min="1" max="5" value="3">
+        <div class="slider-labels">
+            <span>😊 Controlled</span>
+            <span>😐 Normal</span>
+            <span>😵 Intense</span>
+        </div>
+    </div>
+</div>
+        <div class="modal" id="moodModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Log Mood & Energy</div>
+                    <div class="modal-close" id="closeMoodModal">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="moodDate">Date</label>
+                        <input type="date" id="moodDate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="moodLevel">Mood Level (1-5)</label>
+                        <div class="slider-container">
+                            <input type="range" id="moodLevel" class="slider" min="1" max="5" value="3">
+                            <div class="slider-labels">
+                                <span>😢 Very Low</span>
+                                <span>😐 Neutral</span>
+                                <span>😊 Very High</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="energyLevel">Energy Level (1-5)</label>
+                        <div class="slider-container">
+                            <input type="range" id="energyLevel" class="slider" min="1" max="5" value="3">
+                            <div class="slider-labels">
+                                <span>😴 Exhausted</span>
+                                <span>😐 Normal</span>
+                                <span>💪 Energized</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="numbLevel">Numbness Level (1-5)</label>
+                        <div class="slider-container">
+                            <input type="range" id="numbLevel" class="slider" min="1" max="5" value="3">
+                            <div class="slider-labels">
+                                <span>👋 Feeling</span>
+                                <span>😐 Neutral</span>
+                                <span>❄️ Numb</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="moodNotes">Notes (Optional)</label>
+                        <textarea id="moodNotes" class="form-control" placeholder="How are you feeling today? Any particular reasons?"></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" id="cancelMoodLog">Cancel</button>
+                        <button class="btn btn-primary" id="saveMoodLog">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Email Report Modal -->
+        <div class="modal" id="emailReportModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Send Daily Report</div>
+                    <div class="modal-close" id="closeEmailModal">
+                        <i class="fas fa-times"></i>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Report for: <span id="emailReportDate"></span></label>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailRecipient">Recipient Email</label>
+                        <input type="email" id="emailRecipient" class="form-control" value="rihazrizvi@gmail.com">
+                    </div>
+                    <div class="report-preview" id="emailPreview">
+                        <!-- Report preview will be generated here -->
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn btn-secondary" id="cancelEmailReport">Cancel</button>
+                        <button class="btn btn-primary" id="sendEmailReport">
+                            <i class="fas fa-paper-plane"></i> Send Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/dexie@3.2.4/dist/dexie.min.js"></script>
+    <script src="db.js"></script>
+    <script src="app.js"></script>
+    
+    <script>
+        // Service Worker Registration for PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(function(error) {
+                        console.log('ServiceWorker registration failed: ', error);
+                    });
+            });
+        }
+
+        // Prevent zoom on double-tap
+        document.addEventListener('touchstart', function(event) {
+            if (event.touches.length > 1) {
+                event.preventDefault();
+            }
+        });
+
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
