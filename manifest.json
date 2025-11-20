@@ -2,12 +2,12 @@
   "name": "Life Tracker Pro",
   "short_name": "LifeTrackerPro",
   "description": "Supercharged personal growth and habit tracking",
-  "start_url": "/Proj23_functionUpdates2/",
+  "start_url": "/Proj23_functionUpdates3/",
   "display": "standalone",
   "background_color": "#0A0A0A",
   "theme_color": "#000000",
   "orientation": "portrait",
-  "scope": "/Proj23_functionUpdates2/",
+  "scope": "/Proj23_functionUpdates3/",
   "icons": [
     {
       "src": "icons/icon-192.png",
