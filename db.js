@@ -11,9 +11,9 @@ db.version(8).stores({
     workoutHistory: '++id, date, type, templateId, exercises, notes, createdAt, duration',
     dailyCompletion: '++id, date, dopamineCompleted, workoutCompleted, hygieneCompleted, totalCompletion, createdAt',
     
-    // Enhanced tables with stress and OCD tracking
+    // ENHANCED: Updated moodEntries with stress and ocd fields
+    moodEntries: '++id, date, mood, energy, numb, stress, ocd, notes, createdAt',
     goals: '++id, title, description, type, targetValue, currentValue, deadline, completed, createdAt',
-    moodEntries: '++id, date, mood, energy, stress, ocd, notes, createdAt',
     focusSessions: '++id, date, duration, task, completed, distractions, createdAt',
     habitCategories: '++id, name, color, icon, order, createdAt',
     achievements: '++id, title, description, type, earnedAt, progress, target',
